@@ -1,0 +1,29 @@
+{
+  "name": "open-stock-market-api",
+  "version": "1.0.0",
+  "description": "An Open Source API for getting info from the stock market",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camilobmoreira/Open-Market-Stock-API.git"
+  },
+  "keywords": [
+    "Stock",
+    "Market",
+    "Open",
+    "Source",
+    "API"
+  ],
+  "author": "Camilo B. Moreira <bustamantecamilo23@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/camilobmoreira/Open-Market-Stock-API/issues"
+  },
+  "homepage": "https://github.com/camilobmoreira/Open-Market-Stock-API#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
