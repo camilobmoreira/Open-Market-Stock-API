@@ -1,5 +1,7 @@
-# PROD CONFIG
-FROM node:12 as prod
+#FROM node:12
+FROM redis:alpine
+
+RUN apk add --update npm
 
 WORKDIR /app
 
@@ -11,4 +13,6 @@ COPY . .
 
 ENV NODE_ENV=production
 
-CMD [ "npm", "start" ]
+RUN chmod +x ./start.sh
+
+CMD [ "./start.sh" ]

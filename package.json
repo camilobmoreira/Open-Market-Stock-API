@@ -4,7 +4,8 @@
   "description": "An Open Source API for getting info from the stock market",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "nodemon --inspect ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,10 @@
   },
   "homepage": "https://github.com/camilobmoreira/Open-Market-Stock-API#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-swagger-generator": "^1.1.17"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }

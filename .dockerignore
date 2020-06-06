@@ -2,8 +2,7 @@
 .vscode
 node_modules/
 npm-debug
-swagger/
-docker-compose*.yml
 Dockerfile
+docker-start.sh
 README.md
 LICENSE
