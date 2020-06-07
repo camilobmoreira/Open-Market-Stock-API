@@ -1,0 +1,255 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Open Stock Market API",
+    "description": "This is an Open Source API for the getting info from the Stock Market. \n\n\nFound this helpful and wanna help us? \nYou can donate any ammount at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). \nOr you can check the [page of the project on github](https://camilobmoreira.github.io/Open-Stock-Market-API/) for more info on how to help us some other way.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "GNU General Public License v3.0",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    }
+  },
+  "host": "open-stock-market-api.herokuapp.com",
+  "basePath": "/",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/stockinfo/{symbol}": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get general info for a stock",
+        "description": "Returns info for a single stock",
+        "operationId": "find_by_symbol",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/StockInfo"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    },
+    "/stockinfo/{symbol}/price": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get the price for a stock",
+        "description": "Returns the price for a single stock",
+        "operationId": "price_by_symbol",
+        "produces": [
+          "number"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    },
+    "/stockinfo/{symbol}/market": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get the market for a stock",
+        "description": "Returns the market for a single stock",
+        "operationId": "market_by_symbol",
+        "produces": [
+          "text"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    },
+    "/stockinfo/{symbol}/currency": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get the currency for a stock",
+        "description": "Returns the currency for a single stock",
+        "operationId": "currency_by_symbol",
+        "produces": [
+          "text"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    },
+    "/stockinfo/{symbol}/dividendYield": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get the dividend yield for a stock",
+        "description": "Returns the dividend yield for a single stock",
+        "operationId": "dividendYield_by_symbol",
+        "produces": [
+          "number"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    },
+    "/stockinfo/{symbol}/dividendHistory": {
+      "get": {
+        "tags": [
+          "Stock Info"
+        ],
+        "summary": "Get the dividend history info for a stock",
+        "description": "Returns the dividend history for a single stock",
+        "operationId": "dividendHistory_by_symbol",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "symbol of stock to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Stock not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "StockInfo": {
+      "type": "object",
+      "properties": {
+        "symbol": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "decimal"
+        },
+        "dividendYield": {
+          "type": "number",
+          "format": "percentage"
+        },
+        "dividendHistory": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

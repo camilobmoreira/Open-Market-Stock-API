@@ -8,50 +8,22 @@ const SWAGGER_FILE = '/api-docs.json'
 
 const express = require('express')
 const app = express()
-const expressSwagger = require('express-swagger-generator')(app)
 
-const options = {
-    swaggerDefinition: {
-        info: {
-            description: `An Open Source API for getting info from the stock market.`, //fixme add github page?
-            title: APP_NAME,
-            version: '1.0.0',
-        },
-        host: `localhost:${PORT}`,
-        basePath: '/',
-        produces: [
-            "application/json",
-            // "application/xml"
-        ],
-        schemes: ['http', 'https'],
-		// securityDefinitions: {
-        //     JWT: {
-        //         type: 'apiKey',
-        //         in: 'header',
-        //         name: 'Authorization',
-        //         description: "",
-        //     }
-        // }
-    },
-    route : {
-        url : SWAGGER_URL,
-        docs : SWAGGER_FILE
-    },
-    basedir: __dirname, //app absolute path
-    files: [
-        './app/models/**/*.js',
-        './app/routes/**/*.js'
-    ] //Path to the API handle folder
-}
-
+// Home
 app.get('/', (req, res) => {
     res.send('Hello world\n')
 })
 
+// Swagger docs
+const swaggerUi = require('express-swaggerize-ui')
+app.use('/api-docs.json', function (req, res) {
+    res.json(require('./swagger/api-docs.json'))
+})
+app.use('/api-docs', swaggerUi());
+
+// API routes
 const stockInfoRoutes = require('./app/routes/StockInfoRoutes')
 app.use('/', stockInfoRoutes)
-
-expressSwagger(options)
 
 // Error handling. Needs to be the last one
 app.use(function(req, res) {

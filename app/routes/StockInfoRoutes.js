@@ -2,72 +2,70 @@
 const router = require('express').Router();
 const stockInfoController = require('../controllers/StockInfoController');
 
+/**
+ * Find the info of a stock by its symbol
+ *
+ * @route GET /stockinfo/:symbol
+ * @param {string} symbol.path.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces application/json
+ * @returns {StockInfo.model} 200 - The Stock found
+ */
 router.get('/stockinfo/:symbol', stockInfoController.find_by_symbol);
 
+/**
+ * Find the price of a stock by its symbol
+ *
+ * @route GET /stockinfo/{symbol}/price
+ * @param {string} symbol.query.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces number
+ * @returns {StockInfo.price.model} 200 - Price of the Stock found
+ */
+router.get('/stockinfo/:symbol/price', stockInfoController.price_by_symbol);
+
+/**
+ * Find the market of a stock by its symbol
+ *
+ * @route GET /stockinfo/{symbol}/market
+ * @param {string} symbol.query.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces text
+ * @returns {StockInfo.market.model} 200 - Market of the Stock found
+ */
+router.get('/stockinfo/:symbol/market', stockInfoController.market_by_symbol);
+
+/**
+ * Find the currency of a stock by its symbol
+ *
+ * @route GET /stockinfo/{symbol}/currency
+ * @param {string} symbol.query.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces text
+ * @returns {StockInfo.currency.model} 200 - Currency of the Stock found
+ */
+router.get('/stockinfo/:symbol/currency', stockInfoController.currency_by_symbol);
+
+/**
+ * Find the dividend yield of a stock by its symbol
+ *
+ * @route GET /stockinfo/{symbol}/dividendYield
+ * @param {string} symbol.query.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces number
+ * @returns {StockInfo.dividendYield.model} 200 - Dividend yield of the Stock found
+ */
+router.get('/stockinfo/:symbol/dividendYield', stockInfoController.dividendYield_by_symbol);
+
+/**
+ * Find the dividend history of a stock by its symbol
+ *
+ * @route GET /stockinfo/{symbol}/dividendHistory
+ * @param {string} symbol.query.required - the stock symbol
+ * @group Stock Info - Info from Stocks
+ * @produces array
+ * @returns {StockInfo.dividendHistory.model} 200 - Dividend history of the Stock found
+ */
+router.get('/stockinfo/:symbol/dividendHistory', stockInfoController.dividendHistory_by_symbol);
+
 module.exports = router
-
-
-
-
-
-
-//fixme
-/**
- * This function comment is parsed by doctrine
- * @route GET /api
- * @group foo - Operations about user
- * @param {string} email.query.required - username or email - eg: user@domain
- * @param {string} password.query.required - user's password.
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
- */
-
-
-
-
-//For model definitions:
-/**
- * @typedef Product
- * @property {integer} id
- * @property {string} name.required - Some description for product
- * @property {Array.<Point>} Point
- */
-
-/**
- * @typedef Point
- * @property {integer} x.required
- * @property {integer} y.required - Some description for point - eg: 1234
- * @property {string} color
- * @property {enum} status - Status values that need to be considered for filter - eg: available,pending
- */
-
-/**
- * @typedef Error
- * @property {string} code.required
- */
-
-/**
- * @typedef Response
- * @property {[integer]} code
- */
-
-
-/**
- * This function comment is parsed by doctrine
- * sdfkjsldfkj
- * @route POST /users
- * @param {Point.model} point.body.required - the new point
- * @group foo - Operations about user
- * @param {string} email.query.required - username or email
- * @param {string} password.query.required - user's password.
- * @param {enum} status.query.required - Status values that need to be considered for filter - eg: available,pending
- * @operationId retrieveFooInfo
- * @produces application/json application/xml
- * @consumes application/json application/xml
- * @returns {Response.model} 200 - An array of user info
- * @returns {Product.model}  default - Unexpected error
- * @returns {Array.<Point>} Point - Some description for point
- * @headers {integer} 200.X-Rate-Limit - calls per hour allowed by the user
- * @headers {string} 200.X-Expires-After - 	date in UTC when token expires
- * @security JWT
- */
