@@ -1,11 +1,13 @@
-const request = require('request')
+'use strict';
+
 const cheerio = require('cheerio')
+
+const RequestUtils = require('../utils/RequestUtils')
+const StockInfo = require('../models/StockInfo')
+const Earning = require('../models/Earning')
 
 const BASE_URL = 'https://portal.meusdividendos.com/'
 const URL =  BASE_URL + 'v1/acervo/ativo?q=${symbol}'
-
-const StockInfo = require('../models/StockInfo')
-const Earning = require('../models/Earning')
 
 exports.get = async function(symbol) {
     let url = URL.replace('${symbol}', symbol)
@@ -18,7 +20,7 @@ exports.get = async function(symbol) {
 }
 
 async function scrap(url, symbol) {
-    let html = await syncGet(url)
+    let html = await RequestUtils.syncGet(url)
     let $ = cheerio.load(html)
     let ticker = $('.profile-username')[0].children[0].data
     if (ticker.toUpperCase() !== symbol.toUpperCase()) {
@@ -59,7 +61,7 @@ function scrapEarningsHistory(divEarnings) {
 }
 
 async function searchFinalUrl(url, symbol) {
-    let response = JSON.parse(await syncGet(url))
+    let response = JSON.parse(await RequestUtils.syncGet(url))
     if (!response) {
         return null
     }
@@ -97,19 +99,4 @@ function searchUrl(optionsArray, symbol) {
 
 function searchTicker(symbol) {
     return ticker => ticker.i == symbol
-}
-
-//fixme extract to helper class
-function syncGet(url) {
-    return new Promise((resolve, reject) => {
-        request(url, (error, response, body) => {
-            if (error) {
-                reject(error)
-            }
-            if (response.statusCode != 200) {
-                reject('Invalid status code <' + response.statusCode + '>')
-            }
-            resolve(body);
-        });
-    });
 }
