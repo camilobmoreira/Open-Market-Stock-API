@@ -11,7 +11,18 @@ const app = express()
 
 // Home
 app.get('/', (req, res) => {
-    res.send('Hello world\n')
+    let page = `
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta http-equiv = "refresh" content = "2; url = /api-docs" />
+        </head>
+        <body>
+            <p>Redirecting to documentation page...</p>
+        </body>
+    </html>
+    `
+    res.send(page)
 })
 
 // Swagger docs

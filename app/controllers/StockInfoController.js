@@ -1,26 +1,32 @@
 'use strict';
 let stockInfoService = require('../services/StockInfoService')
 
-exports.find_by_symbol = function(req, res) {
-	res.json(stockInfoService.findBySymbol(req.params.symbol))
+exports.find_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.json(stockInfo)
 }
 
-exports.price_by_symbol = function(req, res) {
-	res.send(stockInfoService.findBySymbol(req.params.symbol).price)
+exports.price_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.send(stockInfo.price)
 }
 
-exports.market_by_symbol = function(req, res) {
-	res.send(stockInfoService.findBySymbol(req.params.symbol).market)
+exports.market_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.send(stockInfo.market)
 }
 
-exports.currency_by_symbol = function(req, res) {
-	res.send(stockInfoService.findBySymbol(req.params.symbol).currency)
+exports.currency_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.send(stockInfo.currency)
 }
 
-exports.dividendYield_by_symbol = function(req, res) {
-	res.send(stockInfoService.findBySymbol(req.params.symbol).dividendYield)
+exports.dividendYield_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.send(stockInfo.dividendYield)
 }
 
-exports.dividendHistory_by_symbol = function(req, res) {
-	res.send(stockInfoService.findBySymbol(req.params.symbol).dividendHistory)
+exports.earningsHistory_by_symbol = async function(req, res) {
+	const stockInfo = await stockInfoService.findBySymbol(req.params.symbol)
+	res.send(stockInfo.earningsHistory)
 }

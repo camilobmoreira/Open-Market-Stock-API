@@ -9,7 +9,7 @@ const stockInfoController = require('../controllers/StockInfoController');
  * @param {string} symbol.path.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces application/json
- * @returns {StockInfo.model} 200 - The Stock found
+ * @returns {StockInfo} 200 - The Stock found
  */
 router.get('/stockinfo/:symbol', stockInfoController.find_by_symbol);
 
@@ -20,7 +20,7 @@ router.get('/stockinfo/:symbol', stockInfoController.find_by_symbol);
  * @param {string} symbol.query.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces number
- * @returns {StockInfo.price.model} 200 - Price of the Stock found
+ * @returns {StockInfo.price} 200 - Price of the Stock found
  */
 router.get('/stockinfo/:symbol/price', stockInfoController.price_by_symbol);
 
@@ -31,7 +31,7 @@ router.get('/stockinfo/:symbol/price', stockInfoController.price_by_symbol);
  * @param {string} symbol.query.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces text
- * @returns {StockInfo.market.model} 200 - Market of the Stock found
+ * @returns {StockInfo.market} 200 - Market of the Stock found
  */
 router.get('/stockinfo/:symbol/market', stockInfoController.market_by_symbol);
 
@@ -42,7 +42,7 @@ router.get('/stockinfo/:symbol/market', stockInfoController.market_by_symbol);
  * @param {string} symbol.query.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces text
- * @returns {StockInfo.currency.model} 200 - Currency of the Stock found
+ * @returns {StockInfo.currency} 200 - Currency of the Stock found
  */
 router.get('/stockinfo/:symbol/currency', stockInfoController.currency_by_symbol);
 
@@ -53,19 +53,19 @@ router.get('/stockinfo/:symbol/currency', stockInfoController.currency_by_symbol
  * @param {string} symbol.query.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces number
- * @returns {StockInfo.dividendYield.model} 200 - Dividend yield of the Stock found
+ * @returns {StockInfo.dividendYield} 200 - Dividend yield of the Stock found
  */
 router.get('/stockinfo/:symbol/dividendYield', stockInfoController.dividendYield_by_symbol);
 
 /**
- * Find the dividend history of a stock by its symbol
+ * Find the earnings history of a stock by its symbol
  *
- * @route GET /stockinfo/{symbol}/dividendHistory
+ * @route GET /stockinfo/{symbol}/earningsHistory
  * @param {string} symbol.query.required - the stock symbol
  * @group Stock Info - Info from Stocks
  * @produces array
- * @returns {StockInfo.dividendHistory.model} 200 - Dividend history of the Stock found
+ * @returns {Array.<Earning>}  200 - Earnings history of the Stock found
  */
-router.get('/stockinfo/:symbol/dividendHistory', stockInfoController.dividendHistory_by_symbol);
+router.get('/stockinfo/:symbol/earningsHistory', stockInfoController.earningsHistory_by_symbol);
 
 module.exports = router

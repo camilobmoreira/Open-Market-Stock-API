@@ -25,8 +25,10 @@
   },
   "homepage": "https://github.com/camilobmoreira/Open-Market-Stock-API#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
     "express": "^4.17.1",
-    "express-swaggerize-ui": "^1.1.0"
+    "express-swaggerize-ui": "^1.1.0",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
