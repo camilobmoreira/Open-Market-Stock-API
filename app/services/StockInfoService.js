@@ -4,12 +4,12 @@ const StockInfo = require('../models/StockInfo')
 const RedisUtils = require('../utils/RedisUtils')
 
 const ScrappingServices = [
-    require('./GoogleFinanceScrappingService'),
-    require('./MeusDividendosScrappingService')
+    require('./FundamentusScrappingService'),
+    require('./MeusDividendosScrappingService'),
 ]
 
 const DividendHistoryServices = [
-    
+    // require('./MeusDividendosScrappingService'),
 ]
 
 exports.findBySymbol = async function(symbol) {

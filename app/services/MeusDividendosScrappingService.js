@@ -22,7 +22,7 @@ exports.get = async function(symbol) {
 async function scrap(url, symbol) {
     let html = await RequestUtils.syncGet(url)
     let $ = cheerio.load(html)
-    let ticker = $('.profile-username')[0].children[0].data
+    let ticker = $('.profile-username').text().trim()
     if (ticker.toUpperCase() !== symbol.toUpperCase()) {
         return null
     }
