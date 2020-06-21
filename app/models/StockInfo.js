@@ -14,6 +14,6 @@ module.exports = class StockInfo {
         this.currency = currency
         this.price = price
         this.dividendYield = dividendYield
-        this.earningsHistory = earningsHistory | []
+        this.earningsHistory = earningsHistory || []
     }
 }

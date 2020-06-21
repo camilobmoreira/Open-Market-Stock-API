@@ -29,9 +29,12 @@ async function scrap(url, symbol) {
     let stockInfo = new StockInfo()
     stockInfo.symbol = ticker
     let basicInfoDiv = $('#perfil')
-    let priceInfo = basicInfoDiv.find('b')[0].children[0].data //fixme there's probably a better way of doing this
+    let priceInfo = basicInfoDiv.find('b').text()
     if (priceInfo.includes('$')) {
-        stockInfo.price = priceInfo.split(' ')[1]
+        const priceAsString = priceInfo.split(' ')[1];
+        if (!isNaN(priceAsString)) {
+            stockInfo.price = Number(priceAsString)
+        }
     }
     let divEarnings = $('#box-proventos').find('.box-body')
     stockInfo.earningsHistory = scrapEarningsHistory(divEarnings)

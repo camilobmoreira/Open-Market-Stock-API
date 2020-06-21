@@ -1,5 +1,5 @@
 # start redis
-# redis-server &
+redis-server &
 
 # start node
 npm start
