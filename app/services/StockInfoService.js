@@ -21,6 +21,7 @@ exports.findBySymbol = async function(symbol) {
 
     tryAndComplete(stockInfo, stockFromCache)
     if (isCompleteNoEarningsHistory(stockInfo)) {
+        console.log(`StockInfo for ${symbol} recovered from cache`)
         return stockInfo
     }
 
@@ -39,14 +40,17 @@ exports.findBySymbol = async function(symbol) {
         stockInfo.earningsHistory = await RedisUtils.syncGet(cacheKeyEarningsHistory)
     }
 
-    if (!isComplete(stockInfo)) {
-        for (let i = 0; i < DividendHistoryServices.length; i++) {
-            const service = DividendHistoryServices[i];
-            let earningsHistory = await service.get(symbol)
-            if (earningsHistory && earningsHistory.length) {
-                stockInfo.earningsHistory = earningsHistory
-                break
-            }
+    if (isComplete(stockInfo)) {
+        console.log(`Earnings history for ${symbol} recovered from cache`)
+        return stockInfo
+    }
+
+    for (let i = 0; i < DividendHistoryServices.length; i++) {
+        const service = DividendHistoryServices[i];
+        let earningsHistory = await service.get(symbol)
+        if (earningsHistory && earningsHistory.length) {
+            stockInfo.earningsHistory = earningsHistory
+            break
         }
     }
 
