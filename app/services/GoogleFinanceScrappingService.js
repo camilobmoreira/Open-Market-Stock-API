@@ -5,9 +5,9 @@ const BASE_URL = 'https://www.google.com/'
 const URL =  BASE_URL + 'search?q=${symbol}&tbm=fin'
 
 
-exports.get = function(symbol) {
+exports.get = async function(symbol) {
     // let url = URL.replace('${symbol}', symbol)
-    // let page = request(url, scrap)
+    // let page = await request(url, scrap)
     return null
 }
 

@@ -11,7 +11,7 @@ const URL =  BASE_URL + 'detalhes.php?papel=${symbol}'
 
 exports.get = async function(symbol) {
     let url = URL.replace('${symbol}', symbol)
-    let stockInfo = scrap(url, symbol)
+    let stockInfo = await scrap(url, symbol)
     return stockInfo
 }
 

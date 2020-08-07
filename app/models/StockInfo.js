@@ -8,12 +8,13 @@
  * @property {Array.<Earning>} earningsHistory - Earnings history
  */
 module.exports = class StockInfo {
-    constructor(symbol, market, currency, price, dividendYield, earningsHistory) {
+    constructor(symbol, market, currency, price, dividendYield, earningsHistory, type) {
         this.symbol = symbol
         this.market = market
         this.currency = currency
         this.price = price
         this.dividendYield = dividendYield
         this.earningsHistory = earningsHistory
+        this.type = type
     }
 }

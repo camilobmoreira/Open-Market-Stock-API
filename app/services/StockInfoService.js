@@ -4,7 +4,8 @@ const StockInfo = require('../models/StockInfo')
 const RedisUtils = require('../utils/RedisUtils')
 
 const ScrappingServices = [
-    require('./FundamentusScrappingService'),
+    require('./YahooFinanceScrappingService'),
+    // require('./FundamentusScrappingService'), 403, why??
     require('./MeusDividendosScrappingService'),
 ]
 
@@ -84,11 +85,11 @@ function tryAndComplete(stockInfo, stock) {
 }
 
 function isCompleteNoEarningsHistory(stock) {
-    return stock.symbol && 
-        stock.market && 
-        stock.currency && 
-        stock.price && 
-        stock.dividendYield
+    return stock.symbol 
+        // && stock.market
+        // && stock.currency
+        && stock.price
+        // && stock.dividendYield
 }
 
 function isComplete(stock) {
