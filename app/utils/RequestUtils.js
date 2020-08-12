@@ -13,5 +13,5 @@ exports.syncGet = function (url) {
             }
             resolve(body)
         });
-    })
+    }).catch(error => console.log('RequestUtils#syncGet error: ' + error))
 }

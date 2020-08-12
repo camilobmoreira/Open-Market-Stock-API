@@ -27,7 +27,7 @@ exports.syncGet = function (cacheKey) {
             }
             resolve(response)
         })
-    })
+    }).catch(error => console.log('RedisUtils#syncGet error: ' + error))
 }
 
 exports.put = function (data, cacheKey, expirationTime) {
