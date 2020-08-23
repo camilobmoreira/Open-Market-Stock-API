@@ -15,7 +15,7 @@ exports.find_by_symbol_xml = async function(req, res) {
 
 exports.price_by_symbol = async function(req, res) {
 	const stockInfo = await StockInfoService.findBySymbol(req.params.symbol)
-	res.json(stockInfo.price)
+	res.json(`${stockInfo.price}`)
 }
 
 exports.market_by_symbol = async function(req, res) {
