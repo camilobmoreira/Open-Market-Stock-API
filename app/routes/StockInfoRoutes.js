@@ -13,6 +13,8 @@ const stockInfoController = require('../controllers/StockInfoController');
  */
 router.get('/stockinfo/:symbol', stockInfoController.find_by_symbol);
 
+router.get('/stockinfo/:symbol/xml', stockInfoController.find_by_symbol_xml); //fixme
+
 /**
  * Find the price of a stock by its symbol
  *
