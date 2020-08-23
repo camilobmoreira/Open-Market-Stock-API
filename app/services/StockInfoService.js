@@ -18,9 +18,9 @@ exports.findBySymbol = async function(symbol) {
     let cacheKeyStockInfo = `stockInfo.${symbol}`
     let cacheKeyEarningsHistory = `stockInfo.${symbol}.earningsHistory`
 
-    let stockFromCache = await RedisUtils.syncGet(cacheKeyStockInfo)
+    let stockFromCache = JSON.parse(await RedisUtils.syncGet(cacheKeyStockInfo))
 
-    tryAndComplete(stockInfo, stockFromCache)
+    stockInfo = tryAndComplete(stockInfo, stockFromCache)
     if (isCompleteNoEarningsHistory(stockInfo)) {
         console.log(`StockInfo for ${symbol} recovered from cache`)
         return stockInfo
@@ -29,7 +29,7 @@ exports.findBySymbol = async function(symbol) {
     for (let i = 0; i < ScrappingServices.length; i++) {
         const service = ScrappingServices[i];
         let stock = await service.get(symbol)
-        tryAndComplete(stockInfo, stock)
+        stockInfo = tryAndComplete(stockInfo, stock)
         if (isCompleteNoEarningsHistory(stockInfo)) {
             break
         }
@@ -61,35 +61,39 @@ exports.findBySymbol = async function(symbol) {
 };
 
 function tryAndComplete(stockInfo, stock) {
-    if (!stock || !stock.symbol || (stockInfo.symbol && stockInfo.symbol.toUpperCase() != stock.symbol.toUpperCase())) {
-        return
+    let stockInfoCopy = JSON.parse(JSON.stringify(stockInfo)) || {}
+    if (!stock || !stock.symbol || (stockInfoCopy.symbol && stockInfoCopy.symbol.toUpperCase() != stock.symbol.toUpperCase())) {
+        return stockInfoCopy
     }
-    if (!stockInfo.symbol) {
-        stockInfo.symbol = stock.symbol
+    if (!stockInfoCopy.symbol) {
+        stockInfoCopy.symbol = stock.symbol
     }
-    if (!stockInfo.market) {
-        stockInfo.market = stock.market
+    if (!stockInfoCopy.market) {
+        stockInfoCopy.market = stock.market
     }
-    if (!stockInfo.currency) {
-        stockInfo.currency = stock.currency
+    if (!stockInfoCopy.currency) {
+        stockInfoCopy.currency = stock.currency
     }
-    if (!stockInfo.price) {
-        stockInfo.price = stock.price
+    if (!stockInfoCopy.price) {
+        stockInfoCopy.price = stock.price
     }
-    if (!stockInfo.dividendYield) {
-        stockInfo.dividendYield = stock.dividendYield
+    if (!stockInfoCopy.dividendYield) {
+        stockInfoCopy.dividendYield = stock.dividendYield
     }
-    if (!stockInfo.earningsHistory || !stockInfo.earningsHistory.length) {
-        stockInfo.earningsHistory = stock.earningsHistory
+    if (!stockInfoCopy.earningsHistory || !stockInfoCopy.earningsHistory.length) {
+        stockInfoCopy.earningsHistory = stock.earningsHistory
     }
+    return stockInfoCopy
 }
 
 function isCompleteNoEarningsHistory(stock) {
-    return stock.symbol 
+    return !!(
+        stock.symbol
         // && stock.market
         // && stock.currency
         && stock.price
         // && stock.dividendYield
+    )
 }
 
 function isComplete(stock) {

@@ -20,8 +20,9 @@ exports.CONSTANTS = {
 }
 
 exports.syncGet = function (cacheKey) {
+    let internalCacheKey = cacheKey.toUpperCase()
     return new Promise((resolve, reject) => {
-        client.get(cacheKey, (error, response) => {
+        client.get(internalCacheKey, (error, response) => {
             if (error) {
                 reject(error)
             }
